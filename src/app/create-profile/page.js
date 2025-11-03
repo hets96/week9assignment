@@ -1,10 +1,10 @@
-import { db } from "@/utils/dbConnection";
+import { db } from "@/utils/dbConn";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function CreateProfile() {
     const { userId } = await auth();
     
-    // Check if user already has a profile
+    // check for existing profile
     const user = (
         await db.query("SELECT * FROM profiles WHERE clerk_user_id = $1", [userId])
     ).rows[0];

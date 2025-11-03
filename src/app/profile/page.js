@@ -1,4 +1,4 @@
-import { db } from "@/utils/dbConnection";
+import { db } from "@/utils/dbConn";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import CreatePostDialog from "@/app/create-post/page";
@@ -6,17 +6,17 @@ import CreatePostDialog from "@/app/create-post/page";
 export default async function ProfilePage() {
     const { userId } = await auth();
     
-    // Get user's profile
+    //get user's profile
     const profile = (
         await db.query("SELECT * FROM profiles WHERE clerk_user_id = $1", [userId])
     ).rows[0];
     
-    // If no profile, redirect to create one
+    // if no profile, redirect to create one
     if (!profile) {
         redirect("/create-profile");
     }
     
-    // Get user's posts
+    // get user's posts
     const posts = (
         await db.query(
         "SELECT * FROM posts WHERE clerk_user_id = $1 ORDER BY created_at DESC", 
@@ -26,7 +26,6 @@ export default async function ProfilePage() {
     
     return (
         <div>
-        {/* Profile Header */}
         <div className="card mb-8">
             <h1 className="text-4xl font-bold text-destiny-gold mb-2">
             {profile.username}
@@ -41,13 +40,11 @@ export default async function ProfilePage() {
             </div>
         </div>
         
-        {/* Create Post Section */}
         <div className="mb-8 flex justify-between items-center">
             <h2 className="text-3xl font-bold text-destiny-gold">My Adventures</h2>
             <CreatePostDialog />
         </div>
         
-        {/* Posts List */}
         <div className="space-y-6">
             {posts.length === 0 ? (
             <div className="card text-center py-12">
