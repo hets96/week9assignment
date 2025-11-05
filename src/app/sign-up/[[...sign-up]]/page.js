@@ -1,13 +1,13 @@
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 
-export default function SignInPage() {
+export default function SignUpPage() {
     return (
         <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
         <div className="card">
             <h2 className="text-3xl font-bold text-center mb-6 text-destiny-gold">
-            Welcome Back, Guardian
+            Join the Guardians
             </h2>
-            <SignIn />
+            <SignUp />
         </div>
         </div>
     );
